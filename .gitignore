@@ -1,0 +1,15 @@
+# Spring Boot
+target/
+.mvn/
+
+# Angular
+node_modules/
+.angular/
+dist/
+
+# IDE
+.settings/
+.classpath
+.project
+*.iml
+.idea/

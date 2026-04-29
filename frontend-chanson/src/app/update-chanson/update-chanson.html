@@ -1,0 +1,105 @@
+<div class="container">
+  <div><h2>Modifier une Chanson :</h2></div>
+
+  <form #updateForm="ngForm">
+
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>ID Chanson</label>
+      <input readonly type="text" [(ngModel)]="currentChanson.idChanson"
+             name="idChanson" class="form-control">
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Titre Chanson</label>
+      <input type="text" [(ngModel)]="currentChanson.titreChanson" name="titreChanson"
+             class="form-control" required minlength="3" #titreModifCtrl="ngModel">
+      <div class="text-danger" *ngIf="titreModifCtrl.invalid && titreModifCtrl.touched">
+        Le titre doit comporter au moins 3 caractères.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Artiste</label>
+      <input type="text" [(ngModel)]="currentChanson.artiste" name="artiste"
+             class="form-control" required #artisteModifCtrl="ngModel">
+      <div class="text-danger" *ngIf="artisteModifCtrl.invalid && artisteModifCtrl.touched">
+        L'artiste est obligatoire.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Durée (min)</label>
+      <input type="number" [(ngModel)]="currentChanson.dureeChanson" name="dureeChanson"
+             class="form-control" required min="1" #dureeModifCtrl="ngModel">
+      <div class="text-danger" *ngIf="dureeModifCtrl.invalid && dureeModifCtrl.touched">
+        La durée est obligatoire.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date de sortie</label>
+      <input type="date"
+             [ngModel]="currentChanson.dateSortie | date:'yyyy-MM-dd'"
+             (ngModelChange)="currentChanson.dateSortie = $event"
+             name="dateSortie" class="form-control" required #dateModifCtrl="ngModel">
+      <div class="text-danger" *ngIf="dateModifCtrl.invalid && dateModifCtrl.touched">
+        La date de sortie est obligatoire.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Genre</label>
+      <select class="form-control form-control-lg" [(ngModel)]="updatedGenreId" name="idGen"
+              required #genModifCtrl="ngModel">
+        <option value="">-- Choisir un genre --</option>
+        <option *ngFor="let gen of genres" [value]="gen.idGenre">{{ gen.nomGenre }}</option>
+      </select>
+      <div class="text-danger" *ngIf="genModifCtrl.invalid && genModifCtrl.touched">
+        Veuillez choisir un genre.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+      <label class="mb-2">Image :</label>
+      <input type="file" (change)="onImageUpload($event)" class="form-control">
+    </div>
+
+    <div class="mt-2">
+      <button type="button" (click)="onAddImageChanson()" class="btn btn-success">
+        Ajouter Image
+      </button>
+    </div>
+
+    <div class="card shadow mb-4 mt-3">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Images</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let img of currentChanson.images">
+              <td>
+                <img src="{{'data:' + img.type + ';base64,' + img.image}}"
+                     style="height:50px; width:100px">
+              </td>
+              <td>
+                <a class="btn btn-danger" (click)="supprimerImage(img)">Supprimer</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <button type="button" class="btn btn-success" (click)="updateChanson()"
+              [disabled]="updateForm.invalid">
+        Modifier
+      </button>
+    </div>
+
+  </form>
+</div>

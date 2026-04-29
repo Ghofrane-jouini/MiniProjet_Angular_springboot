@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">{{ajout ? 'Ajouter' : 'Modifier'}} un Genre</h4>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="mb-3 w-50" [hidden]="ajout">
+          <label class="form-label">ID Genre</label>
+          <input readonly type="text" [(ngModel)]="genre.idGenre" name="idGenre" class="form-control"
+            placeholder="ID du genre">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nom Genre</label>
+          <input type="text" [(ngModel)]="genre.nomGenre" name="nomGenre" class="form-control"
+            placeholder="Entrez un nom de Genre" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description Genre</label>
+          <input type="text" [(ngModel)]="genre.descriptionGenre" name="descriptionGenre" class="form-control"
+            placeholder="Entrez une description du genre">
+        </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-success px-4" [disabled]="!genre.nomGenre" (click)="saveGenre()">
+            {{ajout ? 'Ajouter' : 'Modifier'}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

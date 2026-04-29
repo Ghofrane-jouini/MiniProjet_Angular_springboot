@@ -1,0 +1,81 @@
+<div class="container">
+  <div>
+    <h2>Ajouter une Chanson :</h2>
+  </div>
+  <form #addForm="ngForm">
+
+    <div hidden class="col-sm-2">
+      <input type="text" [(ngModel)]="newChanson.idChanson" name="idChanson" class="form-control" />
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Titre Chanson</label>
+      <input type="text" [(ngModel)]="newChanson.titreChanson" name="titreChanson"
+             class="form-control" required minlength="3" #titreCtrl="ngModel">
+      <div class="text-danger" *ngIf="titreCtrl.invalid && titreCtrl.touched">
+        Le titre doit comporter au moins 3 caractères.
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Artiste</label>
+      <input type="text" [(ngModel)]="newChanson.artiste" name="artiste"
+             class="form-control" required #artisteCtrl="ngModel">
+      <div class="text-danger" *ngIf="artisteCtrl.invalid && artisteCtrl.touched">
+        L'artiste est obligatoire.
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Durée (min)</label>
+      <input type="number" [(ngModel)]="newChanson.dureeChanson" name="dureeChanson"
+             class="form-control" required min="1" #dureeCtrl="ngModel">
+      <div class="text-danger" *ngIf="dureeCtrl.invalid && dureeCtrl.touched">
+        La durée est obligatoire.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Date de sortie</label>
+      <input type="date" [(ngModel)]="newChanson.dateSortie" name="dateSortie"
+             class="form-control" required #dateCtrl="ngModel">
+      <div class="text-danger" *ngIf="dateCtrl.invalid && dateCtrl.touched">
+        La date de sortie est obligatoire.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Genre</label>
+      <select class="form-control form-control-lg" id="idGenre" name="idGenre"
+              [(ngModel)]="newIdGen" required #genCtrl="ngModel">
+        <option value="">-- Choisir un genre --</option>
+        @for (gen of genres; track gen.idGenre) {
+          <option [value]="gen.idGenre">{{ gen.nomGenre }}</option>
+        }
+      </select>
+      <div class="text-danger" *ngIf="genCtrl.invalid && genCtrl.touched">
+        Veuillez choisir un genre.
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4 mt-2">
+      <label class="mb-2">Image :</label>
+      <input type="file" (change)="onImageUpload($event)" name="image" class="form-control" />
+    </div>
+
+    @if (imagePath) {
+      <div class="col-sm-4 mt-2">
+        <img [src]="imagePath" class="img-fluid rounded"
+             style="width: 300px; height: 200px; object-fit: cover;" />
+      </div>
+    }
+
+    <div class="mt-2">
+      <button type="button" (click)="addChanson()" class="btn btn-success"
+              [disabled]="addForm.invalid">
+        Ajouter
+      </button>
+    </div>
+
+  </form>
+</div>

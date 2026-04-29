@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+    <label>Genres</label>
+    <select class="form-control form-control-lg" [(ngModel)]="idGen" (change)="onChange()">
+      @for (g of genres; track g.idGenre) {
+        <option [value]="g.idGenre">{{ g.nomGenre }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <tr>
+          <th>Id</th>
+          <th>Titre</th>
+          <th>Artiste</th>
+          <th>Durée (min)</th>
+          <th>Date de sortie</th>
+          <th>Genre</th>
+        </tr>
+        @for (chanson of chansons; track chanson.idChanson) {
+          <tbody>
+            <tr>
+              <td>{{ chanson.idChanson }}</td>
+              <td>{{ chanson.titreChanson }}</td>
+              <td>{{ chanson.artiste }}</td>
+              <td>{{ chanson.dureeChanson }}</td>
+              <td>{{ chanson.dateSortie | date:'dd/MM/yyyy' }}</td>
+              @if(chanson.genre) {
+                <td>{{ chanson.genre.nomGenre }}</td>
+              } @else {
+                <td>PAS DE GENRE</td>
+              }
+            </tr>
+          </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</div>

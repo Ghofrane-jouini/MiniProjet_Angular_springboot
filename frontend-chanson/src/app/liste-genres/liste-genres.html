@@ -1,0 +1,30 @@
+<div class="container">
+  <app-update-genre [genre]="updatedGen" (genreUpdated)="genreUpdated($event)" [ajout]="ajout">
+  </app-update-genre>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id Genre</th>
+            <th>Nom Genre</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(gen of genres; track gen.idGenre) {
+            <tr>
+              <td>{{ gen.idGenre }}</td>
+              <td>{{ gen.nomGenre }}</td>
+              <td>{{ gen.descriptionGenre }}</td>
+              <td>
+                <a class="btn btn-success" (click)="updateGen(gen)">Editer</a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

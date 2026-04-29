@@ -1,0 +1,10 @@
+package com.ghofrane.users.repos;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ghofrane.users.entities.Role;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
+	Role findByRole(String role);
+
+}

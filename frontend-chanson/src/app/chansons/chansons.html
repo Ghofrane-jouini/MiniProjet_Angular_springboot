@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <tr>
+          <th>Id</th>
+          <th>Image</th>
+          <th>Titre</th>
+          <th>Artiste</th>
+          <th>Durée (min)</th>
+          <th>Date de sortie</th>
+          <th>Genre</th>
+          <th *ngIf="authService.isAdmin()">Actions</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let chanson of chansons">
+            <td>{{ chanson.idChanson }}</td>
+            <td>
+              <img *ngIf="chanson.imageStr" [src]="chanson.imageStr"
+                   style="height: 100px; width: 150px; object-fit: cover;" class="rounded">
+              <span *ngIf="!chanson.imageStr" class="text-muted">—</span>
+            </td>
+            <td>{{ chanson.titreChanson }}</td>
+            <td>{{ chanson.artiste }}</td>
+            <td>{{ chanson.dureeChanson }}</td>
+            <td>{{ chanson.dateSortie | date:'dd/MM/yyyy' }}</td>
+            <td>{{ chanson.genre?.nomGenre || 'PAS DE GENRE' }}</td>
+            <td *ngIf="authService.isAdmin()">
+              <button class="btn btn-danger btn-sm me-3"
+                      (click)="supprimerChanson(chanson)">Supprimer</button>
+              <a class="btn btn-success btn-sm"
+                 [routerLink]="['/updateChanson', chanson.idChanson]">Modifier</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

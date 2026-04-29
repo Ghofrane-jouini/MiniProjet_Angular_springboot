@@ -1,0 +1,45 @@
+<div class="container">
+  <form class="form-inline">
+    <div class="form-group mx-sm-3 mb-2 mt-2">
+      <label>Titre Chanson en tapant</label>
+      <input #titre [(ngModel)]="searchTerm" name="searchTerm" class="form-control" />
+    </div>
+  </form>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Artiste</th>
+            <th>Durée (min)</th>
+            <th>Date de sortie</th>
+            <th>Genre</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (chanson of chansons | searchFilter: searchTerm; track chanson.idChanson) {
+            <tr>
+              <td>{{ chanson.idChanson }}</td>
+              <td>{{ chanson.titreChanson }}</td>
+              <td>{{ chanson.artiste }}</td>
+              <td>{{ chanson.dureeChanson }}</td>
+              <td>{{ chanson.dateSortie | date:'dd/MM/yyyy' }}</td>
+              @if (chanson.genre) {
+                <td>{{ chanson.genre.nomGenre }}</td>
+              } @else {
+                <td>Pas de genre</td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="text-center">Aucune chanson trouvée</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
